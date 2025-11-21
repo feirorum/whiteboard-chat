@@ -1,0 +1,44 @@
+.marker-mode .marked-count {
+  font-size: 13px;
+  color: var(--accent);
+  padding: 4px 12px;
+  background: rgba(233, 69, 96, 0.1);
+  border-radius: 12px;
+}
+
+.marker-mode .clear-markers-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 12px;
+  padding: 4px 12px;
+}
+
+.marker-mode .clear-markers-btn:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.marked-elements-info {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+}
+
+.marked-badge {
+  background: var(--accent);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Highlight marked nodes in the SVG */
+.marker-mode .mermaid-diagram :global(.node.marked) rect,
+.marker-mode .mermaid-diagram :global(.node.marked) circle {
+  stroke: var(--accent) !important;
+  stroke-width: 3px !important;
+  filter: drop-shadow(0 0 8px rgba(233, 69, 96, 0.5));
+}

@@ -1,0 +1,137 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;
+  padding: 20px;
+  overflow: hidden;
+}
+
+/* Common approach layout */
+.approach-layout {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 20px;
+  height: calc(100vh - 180px);
+}
+
+.diagram-panel {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border);
+}
+
+.panel-header h3 {
+  margin: 0;
+  font-size: 16px;
+  color: var(--text-primary);
+}
+
+.diagram-instructions {
+  padding: 10px 20px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border);
+}
+
+.diagram-panel .mermaid-renderer {
+  flex: 1;
+  margin: 16px;
+  border-radius: 8px;
+}
+
+.chat-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.chat-panel .chat-interface {
+  flex: 1;
+  min-height: 0;
+}
+
+/* No example selected state */
+.no-example-selected {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 180px);
+  text-align: center;
+  color: var(--text-secondary);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.no-example-selected h2 {
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.no-example-selected p {
+  font-size: 16px;
+  margin-bottom: 40px;
+}
+
+.approach-preview {
+  text-align: left;
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 24px;
+  width: 100%;
+}
+
+.approach-preview h3 {
+  color: var(--text-primary);
+  margin: 0 0 16px 0;
+  font-size: 18px;
+}
+
+.approach-preview ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.approach-preview li {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.approach-preview li:last-child {
+  border-bottom: none;
+}
+
+.approach-preview li strong {
+  color: var(--accent);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .approach-layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    height: auto;
+  }
+
+  .diagram-panel,
+  .chat-panel {
+    min-height: 400px;
+  }
+}

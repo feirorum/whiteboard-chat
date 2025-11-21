@@ -1,0 +1,86 @@
+.annotation-layer .annotation-tools {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.annotation-layer .tool-btn {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.annotation-layer .tool-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.annotation-layer .tool-btn:hover:not(.active) {
+  border-color: var(--accent);
+}
+
+.annotation-layer .color-btn {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid transparent;
+}
+
+.annotation-layer .color-btn.active {
+  border-color: white;
+  box-shadow: 0 0 0 2px var(--bg-primary);
+}
+
+.annotation-layer .tool-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border);
+  margin: 0 8px;
+}
+
+.annotation-layer .clear-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+.annotation-layer .clear-btn:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.diagram-with-canvas {
+  position: relative;
+  flex: 1;
+  min-height: 300px;
+}
+
+.diagram-with-canvas .mermaid-renderer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.annotation-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  cursor: crosshair;
+}
+
+.annotation-canvas:not(.drawing) {
+  pointer-events: auto;
+}

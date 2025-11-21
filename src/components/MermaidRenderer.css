@@ -1,0 +1,133 @@
+.mermaid-renderer {
+  position: relative;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 20px;
+  min-height: 300px;
+  overflow: auto;
+}
+
+.mermaid-diagram {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 250px;
+}
+
+.mermaid-diagram.interactive .node,
+.mermaid-diagram.interactive .cluster {
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+.mermaid-diagram.interactive .node:hover,
+.mermaid-diagram.interactive .cluster:hover {
+  filter: brightness(1.2);
+}
+
+.mermaid-diagram svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.markers-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.element-marker {
+  background: rgba(233, 69, 96, 0.3);
+  border: 2px solid var(--accent);
+  border-radius: 4px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.marker-badge {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(233, 69, 96, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(233, 69, 96, 0);
+  }
+}
+
+.custom-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.mermaid-error {
+  background: rgba(233, 69, 96, 0.1);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 10px;
+}
+
+.mermaid-error strong {
+  color: var(--accent);
+}
+
+.mermaid-error pre {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.mermaid-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 250px;
+  color: var(--text-secondary);
+}
+
+.mermaid-empty .hint {
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+/* Mermaid theme overrides */
+.mermaid-diagram .node rect,
+.mermaid-diagram .node circle,
+.mermaid-diagram .node ellipse,
+.mermaid-diagram .node polygon {
+  fill: var(--bg-tertiary);
+  stroke: var(--accent);
+}
+
+.mermaid-diagram .nodeLabel {
+  color: var(--text-primary);
+}
+
+.mermaid-diagram .edgePath .path {
+  stroke: var(--text-secondary);
+}
+
+.mermaid-diagram .cluster rect {
+  fill: rgba(15, 52, 96, 0.5);
+  stroke: var(--border);
+}

@@ -1,0 +1,152 @@
+.diff-preview .diff-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.diff-preview .diff-badge {
+  font-size: 12px;
+  padding: 4px 12px;
+  background: var(--warning);
+  color: var(--bg-primary);
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.diff-preview .accept-btn {
+  background: var(--success);
+  color: white;
+  font-size: 12px;
+}
+
+.diff-preview .accept-btn:hover {
+  filter: brightness(1.1);
+}
+
+.diff-preview .reject-btn {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-size: 12px;
+}
+
+.diff-preview .reject-btn:hover {
+  background: var(--accent);
+  color: white;
+}
+
+.diff-view {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+  min-height: 300px;
+}
+
+.diff-view.has-diff .diagram-side {
+  flex: 1;
+}
+
+.diff-view:not(.has-diff) .diagram-side.current {
+  flex: 1;
+}
+
+.diagram-side {
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.diagram-side.current {
+  border: 2px solid var(--border);
+}
+
+.diagram-side.proposed {
+  border: 2px solid var(--success);
+}
+
+.side-label {
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: var(--bg-tertiary);
+}
+
+.diagram-side.current .side-label {
+  color: var(--text-secondary);
+}
+
+.diagram-side.proposed .side-label {
+  color: var(--success);
+}
+
+.diagram-content {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+}
+
+.diagram-content svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Code diff view */
+.code-diff {
+  margin-top: 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.diff-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  background: var(--bg-tertiary);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.diff-header .toggle-diff {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 11px;
+  padding: 4px 8px;
+}
+
+.diff-content {
+  display: flex;
+  max-height: 200px;
+  overflow: hidden;
+}
+
+.diff-side {
+  flex: 1;
+  overflow: auto;
+  padding: 12px;
+  font-size: 11px;
+}
+
+.diff-side.old {
+  background: rgba(233, 69, 96, 0.1);
+  border-right: 1px solid var(--border);
+}
+
+.diff-side.new {
+  background: rgba(78, 204, 163, 0.1);
+}
+
+.diff-side pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: 'Monaco', 'Menlo', monospace;
+}

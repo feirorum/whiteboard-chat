@@ -1,0 +1,131 @@
+.ghost-suggestions .ghost-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ghost-suggestions .ghost-count {
+  font-size: 13px;
+  color: var(--warning);
+  padding: 4px 12px;
+  background: rgba(255, 193, 7, 0.1);
+  border-radius: 12px;
+}
+
+.ghost-suggestions .clear-ghosts-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+.ghost-suggestions .clear-ghosts-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.diagram-with-ghosts {
+  display: flex;
+  gap: 16px;
+  flex: 1;
+  min-height: 300px;
+}
+
+.diagram-with-ghosts .mermaid-renderer {
+  flex: 1;
+}
+
+.ghosts-panel {
+  width: 280px;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.ghosts-panel h4 {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.ghost-card {
+  background: var(--bg-tertiary);
+  border: 1px dashed var(--warning);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+
+.ghost-card:hover {
+  opacity: 1;
+}
+
+.ghost-description {
+  font-size: 13px;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.ghost-preview {
+  background: var(--bg-primary);
+  border-radius: 4px;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.ghost-preview code {
+  font-size: 10px;
+  color: var(--text-secondary);
+  font-family: 'Monaco', 'Menlo', monospace;
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ghost-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.ghost-actions button {
+  flex: 1;
+  font-size: 11px;
+  padding: 6px;
+}
+
+.accept-ghost-btn {
+  background: var(--success);
+  color: white;
+}
+
+.accept-ghost-btn:hover {
+  filter: brightness(1.1);
+}
+
+.dismiss-ghost-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
+.dismiss-ghost-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Ghost overlay effect on diagram */
+.ghost-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  opacity: 0.4;
+  border: 2px dashed var(--warning);
+  border-radius: 8px;
+}

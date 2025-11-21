@@ -1,0 +1,227 @@
+.version-timeline .timeline-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.version-timeline .version-badge {
+  font-size: 12px;
+  padding: 4px 10px;
+  background: var(--bg-tertiary);
+  border-radius: 12px;
+  color: var(--text-primary);
+  font-family: monospace;
+}
+
+.version-timeline .branch-badge {
+  font-size: 12px;
+  padding: 4px 10px;
+  background: var(--accent);
+  border-radius: 12px;
+  color: white;
+}
+
+.version-timeline .branch-btn {
+  background: transparent;
+  border: 1px solid var(--success);
+  color: var(--success);
+  font-size: 12px;
+}
+
+.version-timeline .branch-btn:hover {
+  background: var(--success);
+  color: white;
+}
+
+.branch-input {
+  display: flex;
+  gap: 6px;
+}
+
+.branch-input input {
+  width: 120px;
+  font-size: 12px;
+  padding: 4px 8px;
+}
+
+.branch-input button {
+  font-size: 11px;
+  padding: 4px 8px;
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.branch-input button:first-of-type {
+  background: var(--success);
+  color: white;
+}
+
+/* Diagram area */
+.diagram-area {
+  display: flex;
+  gap: 16px;
+  flex: 1;
+  min-height: 250px;
+}
+
+.diagram-view {
+  flex: 1;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.diagram-view.current-view {
+  border: 2px solid var(--accent);
+}
+
+.diagram-view.compare-view {
+  border: 2px solid var(--warning);
+}
+
+.version-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 16px;
+  background: var(--bg-tertiary);
+}
+
+.version-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.version-desc {
+  font-size: 12px;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 200px;
+}
+
+.close-compare {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 18px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.close-compare:hover {
+  color: var(--accent);
+}
+
+.diagram-content {
+  flex: 1;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+}
+
+.diagram-content svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Timeline */
+.timeline {
+  margin-top: 16px;
+  padding: 16px;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+}
+
+.timeline-track {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 10px 0;
+}
+
+.timeline-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  min-width: 50px;
+}
+
+.timeline-node:hover {
+  background: var(--bg-tertiary);
+}
+
+.timeline-node.active {
+  background: var(--accent);
+}
+
+.timeline-node.comparing {
+  background: var(--warning);
+}
+
+.node-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--text-secondary);
+  border: 2px solid var(--bg-secondary);
+}
+
+.timeline-node.active .node-dot {
+  background: white;
+  border-color: var(--accent);
+}
+
+.timeline-node.comparing .node-dot {
+  background: var(--bg-primary);
+  border-color: var(--warning);
+}
+
+.node-label {
+  font-size: 10px;
+  color: var(--text-secondary);
+}
+
+.timeline-node.active .node-label {
+  color: white;
+  font-weight: 600;
+}
+
+.timeline-hint {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* Connection lines between nodes */
+.timeline-track::before {
+  content: '';
+  position: absolute;
+  left: 40px;
+  right: 40px;
+  height: 2px;
+  background: var(--border);
+  z-index: 0;
+}
+
+.timeline-track {
+  position: relative;
+}
+
+.timeline-node {
+  z-index: 1;
+}
