@@ -18,7 +18,7 @@ describe('Integration: Full Flow', () => {
         apiKey: '',
       },
       currentExample: null,
-      markerState: { markedElements: new Set() },
+      markerState: { markedElements: new Map(), nextIndex: 0 },
       annotationState: { annotations: [], currentTool: null, currentColor: '#e94560' },
       diffState: { currentCode: '', proposedCode: '', changes: [], acceptedChanges: new Set() },
       ghostState: { ghosts: [] },

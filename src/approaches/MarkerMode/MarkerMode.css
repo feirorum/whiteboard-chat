@@ -19,26 +19,88 @@
   color: var(--accent);
 }
 
-.marked-elements-info {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 10;
+/* Markers legend */
+.markers-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border);
 }
 
-.marked-badge {
-  background: var(--accent);
-  color: white;
-  padding: 6px 12px;
+.marker-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  background: var(--bg-secondary);
   border-radius: 16px;
-  font-size: 12px;
-  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-/* Highlight marked nodes in the SVG */
-.marker-mode .mermaid-diagram :global(.node.marked) rect,
-.marker-mode .mermaid-diagram :global(.node.marked) circle {
-  stroke: var(--accent) !important;
-  stroke-width: 3px !important;
-  filter: drop-shadow(0 0 8px rgba(233, 69, 96, 0.5));
+.marker-item:hover {
+  background: var(--bg-primary);
+}
+
+.marker-item:hover .marker-remove {
+  opacity: 1;
+}
+
+.marker-color {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: bold;
+  color: white;
+}
+
+.marker-label {
+  font-size: 12px;
+  color: var(--text-primary);
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.marker-remove {
+  font-size: 14px;
+  color: var(--text-secondary);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  padding-left: 4px;
+}
+
+.marker-remove:hover {
+  color: var(--accent);
+}
+
+/* Make nodes clickable */
+.marker-mode .mermaid-diagram.interactive {
+  cursor: pointer;
+}
+
+.marker-mode .mermaid-diagram.interactive .node {
+  cursor: pointer;
+}
+
+.marker-mode .mermaid-diagram.interactive .node:hover rect,
+.marker-mode .mermaid-diagram.interactive .node:hover circle,
+.marker-mode .mermaid-diagram.interactive .node:hover ellipse,
+.marker-mode .mermaid-diagram.interactive .node:hover polygon {
+  filter: brightness(1.2);
+}
+
+.marker-mode .mermaid-diagram.interactive .cluster {
+  cursor: pointer;
+}
+
+.marker-mode .mermaid-diagram.interactive .cluster:hover rect {
+  filter: brightness(1.2);
 }

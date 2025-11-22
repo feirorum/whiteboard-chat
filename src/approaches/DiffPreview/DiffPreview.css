@@ -35,70 +35,110 @@
   color: white;
 }
 
-.diff-view {
+/* Changes list */
+.changes-list {
   display: flex;
-  gap: 20px;
-  flex: 1;
-  min-height: 300px;
-}
-
-.diff-view.has-diff .diagram-side {
-  flex: 1;
-}
-
-.diff-view:not(.has-diff) .diagram-side.current {
-  flex: 1;
-}
-
-.diagram-side {
-  background: var(--bg-secondary);
-  border-radius: 8px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.diagram-side.current {
-  border: 2px solid var(--border);
-}
-
-.diagram-side.proposed {
-  border: 2px solid var(--success);
-}
-
-.side-label {
-  padding: 8px 16px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 16px;
   background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border);
 }
 
-.diagram-side.current .side-label {
-  color: var(--text-secondary);
+.change-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
 }
 
-.diagram-side.proposed .side-label {
-  color: var(--success);
+.change-item.added {
+  background: rgba(78, 204, 163, 0.15);
+  border: 1px solid var(--success);
 }
 
-.diagram-content {
-  flex: 1;
-  padding: 20px;
+.change-item.removed {
+  background: rgba(233, 69, 96, 0.15);
+  border: 1px solid var(--accent);
+}
+
+.change-type {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: auto;
+  font-weight: bold;
+  font-size: 14px;
 }
 
-.diagram-content svg {
-  max-width: 100%;
-  height: auto;
+.change-item.added .change-type {
+  background: var(--success);
+  color: white;
+}
+
+.change-item.removed .change-type {
+  background: var(--accent);
+  color: white;
+}
+
+.change-label {
+  color: var(--text-primary);
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.change-actions {
+  display: flex;
+  gap: 4px;
+  margin-left: 8px;
+}
+
+.change-actions button {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border-radius: 4px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.accept-change {
+  background: var(--success);
+  color: white;
+}
+
+.accept-change:hover {
+  filter: brightness(1.2);
+}
+
+.reject-change {
+  background: transparent;
+  border: 1px solid var(--text-secondary);
+  color: var(--text-secondary);
+}
+
+.reject-change:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Diagram area */
+.diff-preview .mermaid-renderer {
+  flex: 1;
+  margin: 16px;
 }
 
 /* Code diff view */
 .code-diff {
-  margin-top: 16px;
+  margin: 16px;
   border: 1px solid var(--border);
   border-radius: 8px;
   overflow: hidden;
@@ -112,6 +152,11 @@
   background: var(--bg-tertiary);
   font-size: 12px;
   font-weight: 600;
+  cursor: pointer;
+}
+
+.diff-header:hover {
+  background: var(--bg-secondary);
 }
 
 .diff-header .toggle-diff {
@@ -144,9 +189,18 @@
   background: rgba(78, 204, 163, 0.1);
 }
 
+.diff-label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
 .diff-side pre {
   margin: 0;
   white-space: pre-wrap;
   word-break: break-word;
   font-family: 'Monaco', 'Menlo', monospace;
+  color: var(--text-primary);
 }

@@ -61,7 +61,8 @@ export interface LLMProvider {
 
 // Approach-specific state types
 export interface MarkerState {
-  markedElements: Set<string>;
+  markedElements: Map<string, number>; // element id -> marker index (for color assignment)
+  nextIndex: number;
 }
 
 export interface Annotation {

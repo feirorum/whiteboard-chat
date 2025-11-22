@@ -24,63 +24,55 @@
   color: var(--accent);
 }
 
-.diagram-with-ghosts {
+/* Ghosts list */
+.ghosts-list {
   display: flex;
-  gap: 16px;
-  flex: 1;
-  min-height: 300px;
-}
-
-.diagram-with-ghosts .mermaid-renderer {
-  flex: 1;
-}
-
-.ghosts-panel {
-  width: 280px;
-  background: var(--bg-secondary);
-  border-radius: 8px;
-  padding: 16px;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 16px;
+  background: var(--bg-tertiary);
+  border-bottom: 1px solid var(--border);
+  max-height: 200px;
   overflow-y: auto;
 }
 
-.ghosts-panel h4 {
-  margin: 0 0 12px 0;
-  font-size: 14px;
-  color: var(--text-secondary);
-}
-
 .ghost-card {
-  background: var(--bg-tertiary);
-  border: 1px dashed var(--warning);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--bg-secondary);
+  border: 2px dashed rgba(255, 193, 7, 0.4);
   border-radius: 8px;
-  padding: 12px;
-  margin-bottom: 12px;
-  opacity: 0.85;
-  transition: opacity 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 .ghost-card:hover {
-  opacity: 1;
+  border-color: var(--warning);
+}
+
+.ghost-card.previewing {
+  border-color: var(--warning);
+  border-style: solid;
+  background: rgba(255, 193, 7, 0.1);
+}
+
+.ghost-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.ghost-icon {
+  font-size: 18px;
 }
 
 .ghost-description {
   font-size: 13px;
   color: var(--text-primary);
-  margin-bottom: 8px;
-}
-
-.ghost-preview {
-  background: var(--bg-primary);
-  border-radius: 4px;
-  padding: 8px;
-  margin-bottom: 10px;
-}
-
-.ghost-preview code {
-  font-size: 10px;
-  color: var(--text-secondary);
-  font-family: 'Monaco', 'Menlo', monospace;
-  display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -88,13 +80,30 @@
 
 .ghost-actions {
   display: flex;
-  gap: 8px;
+  gap: 6px;
+  flex-shrink: 0;
 }
 
 .ghost-actions button {
-  flex: 1;
   font-size: 11px;
-  padding: 6px;
+  padding: 5px 10px;
+}
+
+.preview-ghost-btn {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+
+.preview-ghost-btn:hover {
+  border-color: var(--warning);
+  color: var(--warning);
+}
+
+.preview-ghost-btn.active {
+  background: var(--warning);
+  border-color: var(--warning);
+  color: var(--bg-primary);
 }
 
 .accept-ghost-btn {
@@ -110,6 +119,8 @@
   background: transparent;
   border: 1px solid var(--border);
   color: var(--text-secondary);
+  width: 28px;
+  padding: 5px;
 }
 
 .dismiss-ghost-btn:hover {
@@ -117,15 +128,57 @@
   color: var(--accent);
 }
 
-/* Ghost overlay effect on diagram */
-.ghost-overlay {
+/* Diagram container */
+.diagram-container {
+  flex: 1;
+  position: relative;
+  margin: 16px;
+}
+
+.diagram-container.ghost-preview-mode {
+  border: 3px dashed var(--warning);
+  border-radius: 12px;
+}
+
+.preview-badge {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  pointer-events: none;
-  opacity: 0.4;
-  border: 2px dashed var(--warning);
+  top: 12px;
+  left: 12px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--warning);
+  color: var(--bg-primary);
+  padding: 8px 14px;
   border-radius: 8px;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.preview-hint {
+  font-size: 10px;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+/* Ghost preview styling for diagram */
+.ghost-preview .mermaid-diagram svg .node rect,
+.ghost-preview .mermaid-diagram svg .node circle,
+.ghost-preview .mermaid-diagram svg .node ellipse,
+.ghost-preview .mermaid-diagram svg .node polygon {
+  stroke: var(--warning) !important;
+  stroke-width: 2px !important;
+  stroke-dasharray: 5, 5 !important;
+  opacity: 0.85;
+}
+
+.ghost-preview .mermaid-diagram svg .edgePath path {
+  stroke: var(--warning) !important;
+  stroke-dasharray: 5, 5 !important;
+}
+
+.ghost-preview .mermaid-diagram svg .cluster rect {
+  stroke: var(--warning) !important;
+  stroke-dasharray: 5, 5 !important;
 }

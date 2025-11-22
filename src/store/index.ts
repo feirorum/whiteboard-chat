@@ -144,19 +144,25 @@ export const useStore = create<AppState>((set, get) => ({
   },
 
   // Marker state
-  markerState: { markedElements: new Set() },
+  markerState: { markedElements: new Map(), nextIndex: 0 },
   toggleMarkedElement: (elementId) =>
     set((state) => {
-      const newMarked = new Set(state.markerState.markedElements);
+      const newMarked = new Map(state.markerState.markedElements);
       if (newMarked.has(elementId)) {
         newMarked.delete(elementId);
+        return { markerState: { ...state.markerState, markedElements: newMarked } };
       } else {
-        newMarked.add(elementId);
+        newMarked.set(elementId, state.markerState.nextIndex);
+        return {
+          markerState: {
+            markedElements: newMarked,
+            nextIndex: state.markerState.nextIndex + 1,
+          },
+        };
       }
-      return { markerState: { markedElements: newMarked } };
     }),
   clearMarkedElements: () =>
-    set({ markerState: { markedElements: new Set() } }),
+    set({ markerState: { markedElements: new Map(), nextIndex: 0 } }),
 
   // Annotation state
   annotationState: {

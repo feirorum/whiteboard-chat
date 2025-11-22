@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState, useMemo, useRef } from 'react';
 import { useStore } from '../../store';
-import { MermaidRenderer } from '../../components/MermaidRenderer';
+import { MermaidRenderer, MermaidRendererRef } from '../../components/MermaidRenderer';
 import { ChatInterface } from '../../components/ChatInterface';
 import { parseMermaidFromResponse } from '../../providers/llm-provider';
 import './GhostSuggestions.css';
@@ -11,11 +11,13 @@ export const GhostSuggestions: React.FC = () => {
     setDiagramCode,
     ghostState,
     addGhost,
-    acceptGhost,
     dismissGhost,
     clearGhosts,
     messages,
   } = useStore();
+
+  const rendererRef = useRef<MermaidRendererRef>(null);
+  const [previewGhostId, setPreviewGhostId] = useState<string | null>(null);
 
   // Watch for new assistant messages and extract suggestions as ghosts
   useEffect(() => {
@@ -43,14 +45,45 @@ export const GhostSuggestions: React.FC = () => {
       if (ghost) {
         setDiagramCode(ghost.mermaidCode);
         dismissGhost(ghostId);
+        setPreviewGhostId(null);
       }
     },
     [ghostState.ghosts, setDiagramCode, dismissGhost]
   );
 
+  const handleDismissGhost = useCallback(
+    (ghostId: string) => {
+      dismissGhost(ghostId);
+      if (previewGhostId === ghostId) {
+        setPreviewGhostId(null);
+      }
+    },
+    [dismissGhost, previewGhostId]
+  );
+
+  const handlePreviewGhost = useCallback((ghostId: string) => {
+    setPreviewGhostId(prev => prev === ghostId ? null : ghostId);
+  }, []);
+
   const buildContextInfo = useCallback((): string => {
     return 'Please suggest changes to the diagram. Your suggestions will appear as "ghost" previews that the user can accept or dismiss.';
   }, []);
+
+  // Get the code to display - either preview or current
+  const displayCode = useMemo(() => {
+    if (previewGhostId) {
+      const ghost = ghostState.ghosts.find(g => g.id === previewGhostId);
+      return ghost?.mermaidCode || diagram.code;
+    }
+    return diagram.code;
+  }, [previewGhostId, ghostState.ghosts, diagram.code]);
+
+  // When previewing, highlight all elements as "new/ghost"
+  const highlightAsGhost = useMemo(() => {
+    if (!previewGhostId) return undefined;
+    // Return a special flag to apply ghost styling to the whole diagram
+    return new Set(['__preview_mode__']);
+  }, [previewGhostId]);
 
   return (
     <div className="ghost-suggestions approach-layout">
@@ -69,40 +102,58 @@ export const GhostSuggestions: React.FC = () => {
           )}
         </div>
         <div className="diagram-instructions">
-          AI suggestions appear as ghost overlays. Accept or dismiss them.
+          AI suggestions appear below. Click "Preview" to see changes, then Accept or Dismiss.
         </div>
 
-        <div className="diagram-with-ghosts">
-          <MermaidRenderer />
-
-          {/* Ghost suggestions panel */}
-          {ghostState.ghosts.length > 0 && (
-            <div className="ghosts-panel">
-              <h4>Suggestions</h4>
-              {ghostState.ghosts.map((ghost) => (
-                <div key={ghost.id} className="ghost-card">
-                  <div className="ghost-description">{ghost.description}</div>
-                  <div className="ghost-preview">
-                    <code>{ghost.mermaidCode.slice(0, 100)}...</code>
-                  </div>
-                  <div className="ghost-actions">
-                    <button
-                      className="accept-ghost-btn"
-                      onClick={() => handleAcceptGhost(ghost.id)}
-                    >
-                      Accept
-                    </button>
-                    <button
-                      className="dismiss-ghost-btn"
-                      onClick={() => dismissGhost(ghost.id)}
-                    >
-                      Dismiss
-                    </button>
-                  </div>
+        {/* Ghost suggestions list */}
+        {ghostState.ghosts.length > 0 && (
+          <div className="ghosts-list">
+            {ghostState.ghosts.map((ghost) => (
+              <div
+                key={ghost.id}
+                className={`ghost-card ${previewGhostId === ghost.id ? 'previewing' : ''}`}
+              >
+                <div className="ghost-info">
+                  <span className="ghost-icon">👻</span>
+                  <span className="ghost-description">{ghost.description || 'Suggested changes'}</span>
                 </div>
-              ))}
+                <div className="ghost-actions">
+                  <button
+                    className={`preview-ghost-btn ${previewGhostId === ghost.id ? 'active' : ''}`}
+                    onClick={() => handlePreviewGhost(ghost.id)}
+                  >
+                    {previewGhostId === ghost.id ? 'Hide Preview' : 'Preview'}
+                  </button>
+                  <button
+                    className="accept-ghost-btn"
+                    onClick={() => handleAcceptGhost(ghost.id)}
+                  >
+                    Accept
+                  </button>
+                  <button
+                    className="dismiss-ghost-btn"
+                    onClick={() => handleDismissGhost(ghost.id)}
+                  >
+                    ✕
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div className={`diagram-container ${previewGhostId ? 'ghost-preview-mode' : ''}`}>
+          {previewGhostId && (
+            <div className="preview-badge">
+              <span>👻 Preview Mode</span>
+              <span className="preview-hint">This is how the diagram will look if you accept</span>
             </div>
           )}
+          <MermaidRenderer
+            ref={rendererRef}
+            code={displayCode}
+            className={previewGhostId ? 'ghost-preview' : ''}
+          />
         </div>
       </div>
 

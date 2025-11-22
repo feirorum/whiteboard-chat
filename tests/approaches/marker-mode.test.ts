@@ -6,7 +6,7 @@ describe('Marker Mode Approach', () => {
     useStore.setState({
       currentApproach: 'marker-mode',
       diagram: { code: 'flowchart TB\n  A --> B --> C', svg: '', elements: [] },
-      markerState: { markedElements: new Set() },
+      markerState: { markedElements: new Map(), nextIndex: 0 },
     });
   });
 
@@ -21,6 +21,15 @@ describe('Marker Mode Approach', () => {
       expect(marked.size).toBe(1);
     });
 
+    it('should assign index to marked element', () => {
+      const { toggleMarkedElement } = useStore.getState();
+
+      toggleMarkedElement('nodeA');
+
+      const marked = useStore.getState().markerState.markedElements;
+      expect(marked.get('nodeA')).toBe(0);
+    });
+
     it('should unmark an already marked element', () => {
       const { toggleMarkedElement } = useStore.getState();
 
@@ -31,7 +40,7 @@ describe('Marker Mode Approach', () => {
       expect(marked.has('nodeA')).toBe(false);
     });
 
-    it('should handle marking multiple elements', () => {
+    it('should handle marking multiple elements with sequential indices', () => {
       const { toggleMarkedElement } = useStore.getState();
 
       toggleMarkedElement('nodeA');
@@ -40,6 +49,9 @@ describe('Marker Mode Approach', () => {
 
       const marked = useStore.getState().markerState.markedElements;
       expect(marked.size).toBe(3);
+      expect(marked.get('nodeA')).toBe(0);
+      expect(marked.get('nodeB')).toBe(1);
+      expect(marked.get('edge1')).toBe(2);
     });
 
     it('should clear all markers at once', () => {
@@ -51,7 +63,9 @@ describe('Marker Mode Approach', () => {
 
       clearMarkedElements();
 
-      expect(useStore.getState().markerState.markedElements.size).toBe(0);
+      const state = useStore.getState().markerState;
+      expect(state.markedElements.size).toBe(0);
+      expect(state.nextIndex).toBe(0);
     });
   });
 
@@ -63,10 +77,10 @@ describe('Marker Mode Approach', () => {
       toggleMarkedElement('nodeB');
 
       const marked = useStore.getState().markerState.markedElements;
-      const markedArray = Array.from(marked);
+      const markedKeys = Array.from(marked.keys());
 
-      expect(markedArray).toContain('nodeA');
-      expect(markedArray).toContain('nodeB');
+      expect(markedKeys).toContain('nodeA');
+      expect(markedKeys).toContain('nodeB');
     });
 
     it('should work with empty markers', () => {
